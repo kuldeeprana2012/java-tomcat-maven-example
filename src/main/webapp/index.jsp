@@ -64,6 +64,7 @@
    <div class="container">
      <div class="bannerContent">
      <h3>Dr. Mahesh Gandhi</h3>
+	 <h3>today testing 20:54 </h3>
      <h1>Homeopathy & Psychiatry </h1>
      <h5> We work to take care of your health and body.</h5>
      <button class="btn btn-warning btn-round"> Make an appointment</button>
