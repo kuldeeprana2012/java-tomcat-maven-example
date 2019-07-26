@@ -18,5 +18,13 @@ pipeline {
                 }
             }
         }
+
+        stage('deploy build in stagging area'){
+            steps{
+
+                build job: 'deploy_stagging_code'
+            }
+            }
+        }
 }
 }        
