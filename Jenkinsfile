@@ -19,8 +19,15 @@ pipeline{
          stage ('deploy build satgging area '){
                steps{
                    build job : 'deploy_stagging_code'
+               }
+         }
+
+           stage ('build to production')
+                steps{
+                    build job : 'deploy_to_prod_code'
+                }        
         }
-        }
-        }
+        
+        
 
 }
