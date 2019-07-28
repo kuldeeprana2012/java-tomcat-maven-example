@@ -11,18 +11,18 @@ pipeline{
                        echo 'now archiveing...'
 
                        archiveArtifacts artifacts : '**/*.war'
-                        } 
+                    } 
         
-                    }
+                }
             }
     
            stage ('deploy build satgging area '){
                steps{
                    build job : 'deploy_stagging_code'
-               }
-         }
+                }
+            }
 
-           stage ('build to production')
+           stage ('Deploy to production')
                steps{
                     build job : 'deploy_to_prod_code'
                 }        
