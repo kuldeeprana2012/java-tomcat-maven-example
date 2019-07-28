@@ -22,10 +22,11 @@ pipeline{
                 }
             }
 
-           stage ('Deploy to production')
+           stage ('Deploy to production'){
                steps{
                     build job : 'deploy_to_prod_code'
                 }        
+           }    
         }
         
         
