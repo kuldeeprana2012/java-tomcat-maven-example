@@ -2,7 +2,7 @@ pipeline{
     agent any 
     stages {
            stage ('build servicelet project') {
-               staps {
+               steps {
                     bat 'mvn clean package'
                     } 
 
@@ -17,7 +17,7 @@ pipeline{
             }
     
          stage ('deploy build satgging area '){
-               staps{
+               steps{
                    build job : 'deploy_stagging_code'
         }
         }
