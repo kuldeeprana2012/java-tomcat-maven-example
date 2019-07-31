@@ -1,52 +1,50 @@
-pipeline{
-    agent any 
+pipeline {
+    agent any
     stages {
-           stage ('build servicelet project') {
-               steps {
-                    bat 'mvn clean package'
-                    } 
+        stage ('Build Servlet Project') {
+            steps {
+                /*For windows machine */
+               bat  'mvn clean package'
 
-                post{
-                   success{
-                       echo 'now archiveing...'
+                /*For Mac & Linux machine */
+               // sh  'mvn clean package'
+            }
 
-                       archiveArtifacts artifacts : '**/*.war'
-                    } 
-        
+            post{
+                success{
+                    echo 'Now Archiving ....'
+
+                    archiveArtifacts artifacts : '**/*.war'
                 }
             }
-    
-           stage ('deploy build satgging area '){
-               steps{
-                   build job : 'deploy_stagging_code'
-                }
-            }
-
-           stage ('Deploy to production'){
-               steps{
-                   timeout(time:5, unit:'DAYS'){
-                       inout message: 'Approve Production Deploy'
-                   }
-                   
-
-                    build job : 'deploy_to_prod_code'
-                }  
-
-                post{
-                    success{
-                        echo 'Deployement on Production is Sucessful'
-
-                    }
-                    failure{
-                        echo 'Deployement Failure on prodcution '
-
-                    }
-                }      
-            }
-                
-
         }
-        
-    
 
+        stage ('Deploy Build in Staging Area'){
+            steps{
+
+                build job : 'Deploy-StagingArea-Piple'
+
+            }
+        }
+
+        stage ('Deploy to Production'){
+            steps{
+                timeout (time: 5, unit:'DAYS'){
+                    input message: 'Approve PRODUCTION Deployment?'
+                }
+                
+                build job : 'Deploy-Production-Pipeline'
+            }
+
+            post{
+                success{
+                    echo 'Deployment on PRODUCTION is Successful'
+                }
+
+                failure{
+                    echo 'Deployement Failure on PRODUCTION'
+                }
+            }
+        }
+    }
 }
